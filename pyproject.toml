@@ -1,0 +1,88 @@
+[tool.poetry]
+name = "hydrolib-demotool"
+version = "0.0.1"
+description = "Example tool to demonstrate HYDROLIB-related tools that sit in their own code repository."
+authors = ["Deltares"]
+license = "LGPL-3.0-or-later"
+packages = [
+    { include = "hydrolib_demotool"},
+]
+readme = "README.md"
+repository = "https://github.com/deltares/hydrolib-demotool"
+documentation = "https://deltares.github.io/hydrolib-demotool"
+homepage = "https://deltares.github.io/hydrolib-demotool"
+
+[tool.poetry.urls]
+"issue tracker" = "https://github.com/Deltares/hydrolib-demotool/issues"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+hydrolib-core = ">=0.4"
+
+# A list of all of the optional dependencies, some of which are included in the
+# below `extras`. They can be opted into by apps.
+Faker = ">=17.4"
+
+[tool.poetry.extras]
+optionals = ["Faker"]
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2"
+black = "^22.1"
+isort = "^5.8"
+mkdocs = "^1.2"
+mkdocs-material = "^8.0"
+mkdocstrings = "^0.16"
+mkdocs-autorefs = "^0.3, !=0.3.1"
+pytest-cov = "^2.11"
+pymdown-extensions = "^9.1"
+commitizen = "^2.17"
+flake8 = "^3.9.2"
+mypy = "^0.910"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.0.1"
+tag_format = "$version"
+version_files = [
+    "hydrolib_demotool/__init__.py",
+    "pyproject.toml:version"
+]
+changelog_file = "docs/changelog.md"
+
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39']
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | \.virtualenvs
+  )/
+)
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+
+[tool.pytest.ini_options]
+addopts = "-m \"not plots\""
+markers = [
+    "plots",
+    "docker"
+]
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
